@@ -49,7 +49,13 @@ const questions = [
   },
 ];
 
-const catHeaderImg = '/memes/1.png';
+const questionHeaderImages: Record<number, string> = {
+  3: '/memes/gatito3.png',
+  4: '/memes/gatito4.png',
+  5: '/memes/gatito5.png',
+  6: '/memes/gatito6.png',
+};
+const catHeaderImg = '/memes/gatito7.png';
 const catImagesStep1 = ['/memes/1.png', '/memes/2.png', '/memes/5.png'];
 const catImagesStep2 = ['/memes/3.jpg', '/memes/4.png'];
 
@@ -104,10 +110,20 @@ export default function HomePage() {
   function escapeNo() {
     setNoAttempts((prev) => Math.min(prev + 1, 5));
     setShowNoMsg(true);
-    const parentWidth = 540;
-    const maxX = parentWidth - 120;
+    const btnNo = noButtonRef.current;
+    const btnSi = yesButtonRef.current;
+    const parent = btnNo?.parentElement;
+    if (!btnNo || !btnSi || !parent) return;
+
+    const newSize = 18 + (noAttempts + 1) * 4;
+    const newPad = 16 + (noAttempts + 1) * 4;
+    btnSi.style.fontSize = Math.min(newSize, 42) + 'px';
+    btnSi.style.padding = Math.min(newPad, 32) + 'px ' + Math.min(newPad + 24, 64) + 'px';
+
+    const maxX = parent.offsetWidth - btnNo.offsetWidth - 20;
+    const maxY = 100;
     const left = Math.random() * Math.max(maxX, 50);
-    const top = Math.random() * 100 - 20;
+    const top = Math.random() * maxY - 20;
     setSelectedPosition({ left: `${left}px`, top: `${top}px` });
   }
 
@@ -174,13 +190,11 @@ export default function HomePage() {
     <main className="app" style={{ width: '100%', maxWidth: 560, margin: '0 auto', minHeight: '100vh', padding: 20, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <div>
         <div className="header" style={{ textAlign: 'center', marginBottom: 28, animation: 'fadeDown 0.6s ease' }}>
-          <span className="header-cat" style={{ fontSize: 64, display: 'block', animation: 'float 3s ease-in-out infinite', filter: 'drop-shadow(0 4px 12px rgba(124,58,237,0.3))', marginBottom: 8 }}>
-            <img src={catHeaderImg} alt="Gato" style={{ width: 80, height: 80 }} />
-          </span>
+          <img src="/memes/gatito1.png" alt="gatito1" style={{ width: 150, height: 'auto', borderRadius: 16, display: 'block', margin: '0 auto 16px' }} />
           <h1 style={{ fontSize: 28, fontWeight: 900, background: 'linear-gradient(135deg, var(--primary), var(--accent))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', lineHeight: 1.2 }}>
             ¿Saldrías conmigo?
           </h1>
-          <p style={{ fontFamily: 'Fira Code, monospace', fontSize: 12, color: 'var(--text-muted)', marginTop: 6 }}>
+           <p style={{ fontFamily: 'Fira Code, monospace', fontSize: 12, color: 'var(--text-muted)', marginTop: 6 }}>
             // ejecutando: peticion_romantica_v2.0.cat
           </p>
         </div>
@@ -188,7 +202,7 @@ export default function HomePage() {
         <div className={`step ${currentStep === 0 ? 'active' : ''}`} style={{ display: currentStep === 0 ? 'block' : 'none', animation: 'slideUp 0.4s cubic-bezier(.34,1.56,.64,1)' }} id="s0">
           <div className="plea-card" style={{ background: 'var(--primary-light)', border: '2px solid rgba(124,58,237,0.2)', borderRadius: 'var(--radius)', padding: '20px 24px', display: 'flex', gap: 16, alignItems: 'center', marginBottom: 20 }}>
             <span className="plea-emoji" style={{ fontSize: 40, flexShrink: 0 }}>
-              <img src={catHeaderImg} alt="Emoji gato" style={{ width: 40, height: 40 }} />
+              <img src="/memes/gatito2.png" alt="Emoji gato" style={{ width: 80, height: 80, borderRadius: 12 }} />
             </span>
             <div className="plea-text" style={{ fontSize: 16, fontWeight: 700, color: 'var(--primary-dark)', lineHeight: 1.4 }}>
               Antes de responder... ¡responde esto primero! 🥺
@@ -212,12 +226,60 @@ export default function HomePage() {
             <div className="q-text" style={{ fontSize: 22, fontWeight: 800, color: 'var(--text)', lineHeight: 1.4, marginBottom: 20 }}>
               ¿Quieres tener una cita conmigo? 🥺💕
             </div>
-            <div style={{ display: 'flex', gap: 16, justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', minHeight: 80, position: 'relative' }}>
-              <button ref={yesButtonRef} className="btn-next" style={{ fontSize: 18, padding: '16px 40px', transition: 'all 0.3s', ...yesButtonStyles }} onClick={() => { setAnswers((prev) => ({ ...prev, 1: '¡Sí! 💜' })); go(1, 2); }}>
+            <div style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: 16,
+              minHeight: 80,
+              position: 'relative',
+            }}>
+              <button
+                ref={yesButtonRef}
+                className="btn-next"
+                style={{
+                  fontSize: 18,
+                  padding: '16px 40px',
+                  borderRadius: 999,
+                  background: 'linear-gradient(135deg, var(--primary), var(--accent))',
+                  color: 'white',
+                  border: 'none',
+                  cursor: 'pointer',
+                  boxShadow: '0 10px 24px rgba(124,58,237,0.24)',
+                  transition: 'transform 0.2s ease, box-shadow 0.2s ease, all 0.2s ease',
+                  ...yesButtonStyles,
+                }}
+                onClick={() => {
+                  setAnswers((prev) => ({ ...prev, 1: '¡Sí! 💜' }));
+                  go(1, 2);
+                }}
+              >
                 Sí 💜
               </button>
               {noAttempts < 5 && (
-                <button ref={noButtonRef} className="btn-next" style={{ fontSize: 14, padding: '12px 24px', background: 'linear-gradient(135deg,#6b7280,#4b5563)', boxShadow: '0 4px 12px rgba(107,114,128,0.3)', position: 'relative', transition: 'all 0.2s', ...noButtonStyles }} onMouseOver={escapeNo} onTouchStart={escapeNo}>
+                <button
+                  ref={noButtonRef}
+                  className="btn-next"
+                  style={{
+                    fontSize: 14,
+                    padding: '12px 24px',
+                    borderRadius: 999,
+                    background: 'linear-gradient(135deg, #ffd5d5, #ff9292)',
+                    borderColor: '#f57373',
+                    color: 'white',
+                    border: '2px solid rgba(255,255,255,0.45)',
+                    cursor: 'pointer',
+                    boxShadow: '0 10px 20px rgba(75,85,99,0.18)',
+                    transition: 'transform 0.2s ease, all 0.2s ease',
+                    position: noAttempts === 0 ? 'relative' : 'absolute',
+                    left: noAttempts === 0 ? undefined : selectedPosition?.left,
+                    top: noAttempts === 0 ? undefined : selectedPosition?.top,
+                    ...noButtonStyles,
+                  }}
+                  onMouseOver={escapeNo}
+                  onTouchStart={escapeNo}
+                >
                   No
                 </button>
               )}
@@ -275,7 +337,7 @@ export default function HomePage() {
                 <div className="progress-fill" style={{ height: '100%', background: 'linear-gradient(90deg, var(--primary), var(--accent))', borderRadius: 100, transition: 'width 0.5s cubic-bezier(.34,1.56,.64,1)', width: progress }} />
               </div>
               <div style={{ textAlign: 'center', margin: '12px 0' }}>
-                <img src={catHeaderImg} alt="Decoración" style={{ width: 440, maxWidth: '100%', height: 'auto' }} />
+                <img src={questionHeaderImages[stepIndex] ?? catHeaderImg} alt="Decoración" style={{ display: 'block', margin: '0 auto', width: 280, maxWidth: '100%', height: 'auto' }} />
               </div>
               <div className="q-card" style={{ background: 'var(--card)', borderRadius: 'var(--radius)', boxShadow: 'var(--shadow)', padding: 24, marginBottom: 16, border: '1px solid var(--border)' }}>
                 <span className="q-tag" style={{ fontFamily: 'Fira Code, monospace', fontSize: 11, background: 'var(--primary-light)', color: 'var(--primary)', padding: '4px 10px', borderRadius: 100, display: 'inline-block', marginBottom: 12, fontWeight: 500 }}>
@@ -329,8 +391,8 @@ export default function HomePage() {
 
         <div className="step" style={{ display: currentStep === 7 ? 'block' : 'none' }} id="s7">
           <div className="summary-header" style={{ textAlign: 'center', marginBottom: 24 }}>
-            <span className="big-cat" style={{ fontSize: 72, display: 'block', animation: 'pulse 2s ease-in-out infinite', marginBottom: 12 }}>
-              <img src={catHeaderImg} alt="Gato grande" style={{ width: 72, height: 72 }} />
+            <span className="big-cat" style={{ fontSize: 84, display: 'block', animation: 'pulse 2s ease-in-out infinite', marginBottom: 12 }}>
+              <img src={catHeaderImg} alt="Gato grande" style={{ display: 'block', margin: '0 auto', width: 188, height: 188, objectFit: 'contain' }} />
             </span>
             <h2 style={{ fontSize: 26, fontWeight: 900, background: 'linear-gradient(135deg, var(--primary), var(--accent))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
               Resumen de compatibilidad
@@ -389,7 +451,7 @@ export default function HomePage() {
 
           <div className="q-card" style={{ border: '2px solid var(--accent)', textAlign: 'center', padding: 28, borderRadius: 'var(--radius)', background: 'var(--card)', boxShadow: 'var(--shadow)' }}>
             <span style={{ fontSize: 40, display: 'block', marginBottom: 12 }}>
-              <img src={catHeaderImg} alt="Pregunta final" style={{ width: 40, height: 40 }} />
+              <img src="/memes/gatito0.png" alt="Pregunta final" style={{ display: 'block', margin: '0 auto', width: 140, height: 140, objectFit: 'contain' }} />
             </span>
             <div className="q-text" style={{ fontSize: 22, lineHeight: 1.4 }}>
               Entonces... ¿saldrías conmigo?
@@ -404,9 +466,12 @@ export default function HomePage() {
           </button>
 
           <div className="finale" id="fmsg" style={{ display: showFinale ? 'block' : 'none', textAlign: 'center', padding: 24, background: 'var(--green-light)', border: '2px solid rgba(16,185,129,0.3)', borderRadius: 'var(--radius)', animation: 'pop 0.5s cubic-bezier(.34,1.56,.64,1)', marginTop: 16 }}>
-            <span className="big-emoji" style={{ fontSize: 56, display: 'block', marginBottom: 12 }}>
-              <img src={catHeaderImg} alt="Celebración" style={{ width: 56, height: 56 }} />
-            </span>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 12, marginBottom: 12 }}>
+              <img src="/memes/gatito0.png" alt="gatito0" style={{ display: 'block', width: 80, height: 80, objectFit: 'contain' }} />
+              <img src="/memes/gatito1.png" alt="gatito1" style={{ display: 'block', width: 140, height: 140, objectFit: 'contain' }} />
+              <img src="/memes/gatito0.png" alt="gatito0" style={{ display: 'block', width: 80, height: 80, objectFit: 'contain' }} />
+            </div>
+         
             <h3 style={{ fontSize: 22, fontWeight: 900, color: 'var(--green)', marginBottom: 8 }}>
               ¡Match confirmado!
             </h3>
