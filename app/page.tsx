@@ -10,10 +10,10 @@ const questions = [
     tag: '// módulo: entretenimiento.exe',
     text: '🎬 Noche de películas — ¿qué genero seleccionas?',
     options: [
-      '🚀 Sci-Fi — universos paralelos',
-      '🕵️ Thriller psicológico — glitches en la matrix',
-      '🧪 Documental de ciencia — IRL tutorials 😂',
-      '🎭 Comedia romántica — el bug más predecible',
+      '✨ Fantasía — ejecutar: mundo_magico.exe ✨',
+      '🌙 Terror — warning: no_aptos_para_sensibles 🌙',
+      '😂 Comedia — status: risas_garantizadas = true 😂',
+      '🔍 Otro — loading: ... 99% 🔍',
     ],
   },
   {
@@ -21,10 +21,10 @@ const questions = [
     tag: '// módulo: actividades_sociales.config',
     text: '📍 Primera cita — ¿qué instancia ejecutamos?',
     options: [
-      '☕ Café + código — pair programming romántico',
-      '🔭 Planetario — explorar el universo juntos',
-      '🎮 Arcade vintage — retro & chill',
-      '📚 Librería + helado — the OG nerd date',
+      '🍗 Pollito a la brasa — ejecutar: dedos_pegajosos.exe 🍗',
+      '🍕 Pizza napolitana — compilar: extra_queso.dll 🍕',
+      '🥤 Four Loko — warning: modo_fiesta = ON 🥤',
+      '🍷 Vinito tinto — inicializar: charlas_profundas.txt 🍷',
     ],
   },
   {
@@ -32,10 +32,10 @@ const questions = [
     tag: '// módulo: nutrición_social.dat',
     text: '🍽 Escoge el stack gastronómico de la noche',
     options: [
-      '🍕 Pizza — el stack más sólido de la gastronomía 🍕',
-      '🍣 Sushi — raw data sin procesar 🍣',
-      '🍔 Burger — arquitectura en capas de sabor 🍔',
-      '🌮 Tacos — open source & altamente customizable 🌮',
+      '🌶️ Doritos Picantes — execute: fuego_level_overclock.exe 🌶️',
+      '🥨 Piqueos Max — load: combo_ultra.dll // variedad_max=true 🥨',
+      '🍟 Papas Lays — compilar: crujido_clásico.v1 🍟',
+      '🍇 Uva — init: snack_freshmode.exe // 0% drama, 100% dulce 🍇',
     ],
   },
   {
@@ -43,10 +43,10 @@ const questions = [
     tag: '// módulo: nivel_compromiso.final',
     text: '✨ Después de la cita... ¿qué hacemos? (hypothetically 👀)',
     options: [
-      '🌙 Paseo nocturno con debate filosófico',
-      '🎵 Playlist compartida en bucle infinito',
-      '🎲 Board game maratón — ganador elige la próxima cita',
-      '🌠 Ver las estrellas — con o sin telescopio',
+      '🕯️ Bajar las luces — ejecutar: ambiente_soft.exe 🕯️',
+      '🛏️ Cambiar al modo cómodo — load: pijama_mode.dll 🛏️',
+      '💋 Practicar besos — run: labios_v1.2.exe 💋',
+      '🌌 Contar estrellas — ejecutar: constelaciones_cerca.exe 🌌 ',
     ],
   },
 ];
